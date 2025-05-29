@@ -38,7 +38,7 @@ class DRCViolationSystem {
 
 DBObject ..|> Subject
 DRCViolation ..|> Observer
-DRCViolation --> "1..*" DBObject : observes
+DRCViolation o-- "1..*" DBObject : observes
 
 ' Composition and Singleton
 DRCViolationSystem *-- "1..*" DRCViolation
