@@ -1,7 +1,7 @@
 @startuml
 ' Interfaces
 interface Observer {
-    +update(DBObject obj)
+    +update()
 }
 
 interface Subject {
@@ -22,7 +22,7 @@ class DBObject {
 
 class DRCViolation {
     +violationId: string
-    +update(DBObject obj)
+    +update()
     +getInvolvedObjects(): List<DBObject>
 }
 
