@@ -3,6 +3,8 @@
 
 #include "drc_system/DRCViolationSystem.hpp"
 
+using namespace drc;
+
 TEST(DRCViolationSystemTest, SingletonReturnsSameInstance)
 {
     auto &instance1 = DRCViolationSystem::getInstance(); 

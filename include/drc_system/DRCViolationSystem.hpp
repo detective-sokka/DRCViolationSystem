@@ -1,14 +1,17 @@
 #pragma once
 
-class DRCViolationSystem
+namespace drc
 {
-    public:
-        static DRCViolationSystem& getInstance();
+    class DRCViolationSystem
+    {
+        public:
+            static DRCViolationSystem& getInstance();
 
-    private: 
-        DRCViolationSystem() = default;
-        ~DRCViolationSystem() = default;
+        private: 
+            DRCViolationSystem() = default;
+            ~DRCViolationSystem() = default;
 
-        DRCViolationSystem(const DRCViolationSystem&) = delete;
-        DRCViolationSystem& operator=(const DRCViolationSystem&) = delete;
-};
+            DRCViolationSystem(const DRCViolationSystem&) = delete;
+            DRCViolationSystem& operator=(const DRCViolationSystem&) = delete;
+    };   
+}
