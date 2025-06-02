@@ -13,7 +13,6 @@ interface Subject {
 ' Core domain classes
 class DBObject {
     +id: string
-    +geometry: Geometry
     --
     +subscribe(observer: Observer)
     +unsubscribe(observer: Observer)
