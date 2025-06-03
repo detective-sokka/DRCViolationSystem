@@ -22,6 +22,9 @@ target_link_libraries(test_drc_system
 )
 
 target_link_libraries(test_db_object
+    GTest::gmock
+    GTest::gtest
+    GTest::gmock_main
     gtest_main
     drc_system    
 )
@@ -29,12 +32,3 @@ target_link_libraries(test_db_object
 include(GoogleTest)
 gtest_discover_tests(test_drc_system)
 gtest_discover_tests(test_db_object)
-
-# In your top-level CMakeLists.txt
-option(CODE_COVERAGE "Enable code coverage" ON)
-
-if(CODE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
-    message(STATUS "Code coverage enabled")
-    add_compile_options(--coverage -O0)
-    add_link_options(--coverage)
-endif()
