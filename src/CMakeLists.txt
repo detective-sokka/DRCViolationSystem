@@ -1,6 +1,7 @@
 add_library(drc_system
     DRCViolationSystem.cpp
     DBObject.cpp
+    DRCViolation.cpp
 )
 
 target_include_directories(drc_system PUBLIC
