@@ -22,9 +22,10 @@ class DBObject {
 
 class DRCViolation {    
     -violationId: string
+    -involvedObjectIds : pair<string, string>
     --
     +update()
-    +getInvolvedObjects(): List<DBObject>
+    +getInvolvedObjectIds(): pair<string, string>
 }
 
 class DRCViolationSystem {
