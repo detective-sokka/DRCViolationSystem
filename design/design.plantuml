@@ -11,30 +11,33 @@ interface Subject {
 }
 
 ' Core domain classes
-class DBObject {
+abstract DBObject {
     -id: string    
     -observers: Set<Observer>   
     --
+    +getId() : string
     +subscribe(observer: Observer)
     +unsubscribe(observer: Observer)
     +notifyObservers()
 }
 
 class DRCViolation {    
+    -stale : bool
     -violationId: string
-    -involvedObjectIds : pair<string, string>
+    -involvedObjects : pair<DBObject*, DBObject*>
     --
     +update()
-    +getInvolvedObjectIds(): pair<string, string>
+    +isStale() : bool
+    +getInvolvedObjects(): pair<DBObject*, DBObject*>    
 }
 
 class DRCEngine {
-    -objectViolations: Set<DBObject>
+    -dbObjects: unordered_map<string, shared_ptr<DBObject>> objects;
     -<u>instance : DRCEngine</u>
     --
-    +addViolation(violation: DRCViolation)
-    +removeViolationsForObject(obj: DBObject)
-    +updateViolation(obj: DBObject)
+    +createViolation(obj1: DBObject, obj2 : DBObject)
+    +updateViolations(obj: DBObject)
+    +removeViolations(obj: DBObject)
     +getInstance() : DRCEngine    
 }
 
@@ -44,6 +47,8 @@ DRCViolation "1..*" --o "1..2" DBObject : observes
 
 ' Composition and Singleton
 DRCEngine *-- DRCViolation
+DRCEngine o-- DBObject
+
 note right of DRCEngine
   Singleton pattern:
   - getInstance() returns the only instance
