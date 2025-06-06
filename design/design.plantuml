@@ -28,14 +28,14 @@ class DRCViolation {
     +getInvolvedObjectIds(): pair<string, string>
 }
 
-class DRCViolationSystem {
+class DRCEngine {
     -objectViolations: Set<DBObject>
-    -<u>instance : DRCViolationSystem</u>
+    -<u>instance : DRCEngine</u>
     --
     +addViolation(violation: DRCViolation)
     +removeViolationsForObject(obj: DBObject)
     +updateViolation(obj: DBObject)
-    +getInstance() : DRCViolationSystem    
+    +getInstance() : DRCEngine    
 }
 
 DBObject ..|> Subject
@@ -43,8 +43,8 @@ DRCViolation ..|> Observer
 DRCViolation "1..*" --o "1..2" DBObject : observes
 
 ' Composition and Singleton
-DRCViolationSystem *-- DBObject
-note right of DRCViolationSystem
+DRCEngine *-- DRCViolation
+note right of DRCEngine
   Singleton pattern:
   - getInstance() returns the only instance
   - instance is static (underlined)

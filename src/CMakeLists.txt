@@ -1,5 +1,5 @@
 add_library(drc_system
-    DRCViolationSystem.cpp
+    DRCEngine.cpp
     DBObject.cpp
     DRCViolation.cpp
 )
