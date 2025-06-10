@@ -2,7 +2,7 @@
 
 using namespace drc;
 
-DBObject::DBObject(std::string objectId) : id{objectId}
+DBObject::DBObject()
 {
 }
 
@@ -20,9 +20,4 @@ void DBObject::notifyObservers()
 {
     for (auto *observer : this->observers)
         observer->update();
-}
-
-std::string DBObject::getId() const
-{
-    return id;
 }
