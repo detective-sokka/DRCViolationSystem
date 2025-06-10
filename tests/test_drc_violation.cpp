@@ -1,6 +1,5 @@
 #include <gtest/gtest.h>
 
-#include "drc_system/DBObject.hpp"
 #include "drc_system/DRCViolation.hpp"
 
 using namespace drc;
