@@ -11,38 +11,45 @@ interface Subject {
 }
 
 ' Core domain classes
-class DBObject {
-    +id: string
-    +geometry: Geometry
+abstract DBObject {
+    -id: string    
+    -observers: Set<Observer>   
     --
+    +getId() : string
     +subscribe(observer: Observer)
     +unsubscribe(observer: Observer)
     +notifyObservers()
 }
 
-class DRCViolation {
-    +violationId: string
+class DRCViolation {    
+    -stale : bool
+    -violationId: string
+    -involvedObjects : pair<DBObject*, DBObject*>
+    --
     +update()
-    +getInvolvedObjects(): List<DBObject>
+    +isStale() : bool
+    +getInvolvedObjects(): pair<DBObject*, DBObject*>    
 }
 
-class DRCViolationSystem {
-    +addViolation(violation: DRCViolation)
-    +removeViolationsForObject(obj: DBObject)
-    +updateViolation(obj: DBObject)
-    +getInstance() : DRCViolationSystem
+class DRCEngine {
+    -dbObjects: unordered_map<string, shared_ptr<DBObject>> objects;
+    -<u>instance : DRCEngine</u>
     --
-    -objectToViolations: Map<DBObject, Set<DRCViolation>>
-    -<u>instance : DRCViolationSystem</u>
+    +createViolation(obj1: DBObject, obj2 : DBObject)
+    +updateViolations(obj: DBObject)
+    +removeViolations(obj: DBObject)
+    +getInstance() : DRCEngine    
 }
 
 DBObject ..|> Subject
 DRCViolation ..|> Observer
-DRCViolation --> "1..*" DBObject : observes
+DRCViolation "1..*" --o "1..2" DBObject : observes
 
 ' Composition and Singleton
-DRCViolationSystem *-- "1..*" DRCViolation
-note right of DRCViolationSystem
+DRCEngine *-- DRCViolation
+DRCEngine o-- DBObject
+
+note right of DRCEngine
   Singleton pattern:
   - getInstance() returns the only instance
   - instance is static (underlined)
